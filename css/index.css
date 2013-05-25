@@ -1,0 +1,179 @@
+body{
+	margin:0 0 0 0;
+}
+
+
+#div_top{
+	background-color:#444444;
+
+	height:100px;
+	margin:10px 10px 10px 10px;
+	
+	padding:10px 10px 10px 10px;
+	font-size:70px;
+	color:#ffffff;
+}
+
+#div_body_left{
+	vertical-align:middle;
+	background-color:#444444;
+	height:235px;
+	
+	margin:10px 10px 10px 10px;
+	font-size:40px;
+	color:#ffffff;
+	
+	
+}
+#div_body_left th{
+	font-size:45px;
+	color:#AFD6FF;
+}
+#div_body_left td{
+	font-size:45px;
+	color:#ffffff;
+}
+#div_body_right{
+	background-color:#444444;
+	height:235px;
+	width:29%;
+	float:right;
+	font-size:40px;
+	color:#ffffff;
+	
+	margin:10px 0px 10px 0px;
+	overflow:hidden;
+}
+#txt_str{
+	background-color:#444444;
+	color:#444444;
+	
+	border:none;
+}
+#dialog{
+	
+	font-size:50px;
+}
+#div_foot{
+	margin:10px 10px 10px 10px;
+	padding:10px 10px 10px 10px;
+	height:100px;
+
+	color:#000000;
+	background-image:url(../image/doit.png);
+	background-repeat: no-repeat;
+	padding:20px 10px 10px 410px;
+	font-size:30px;
+}
+
+.weatherFeed a { color: #888; }
+.weatherFeed a:hover {
+	color: #eee;
+	text-decoration: none;
+}
+.weatherItem {
+	padding: 0.8em;
+	text-align: right;
+}
+.weatherCity { text-transform: uppercase; color: #FFFFFF;font-size:3em; }
+.weatherTemp {
+	font-size: 2.8em;
+	font-weight: bold;
+	color: #eee;
+}
+.weatherDesc, .weatherCity { font-weight: bold; }
+.weatherDesc { margin-bottom: 0.4em; color: #eee; }
+.weatherRange, .weatherWind { font-size: 0.8em; }
+.weatherLink {
+	margin-top: 6px;
+	text-align: left;
+	font-size: 0.8em;
+	height:0px;
+}
+#div_right_down{
+
+	width:95%;
+	height:295px;
+	margin:0px 10px 0px 10px;
+	padding:10px 10px 10px 10px;
+	overflow :hidden;
+}
+#div_right_down_bg{
+	filter:Alpha(Opacity=80, FinishOpacity=80, Style=2); /* IE */
+	-moz-opacity:0.5; /* Moz + FF */
+	opacity:0.5; /* CSS3 */
+	background-color:#FFFFFF;
+	width:45%;
+	height:305px;
+	position: absolute;
+}
+#div_rss{
+	
+}
+
+.rssFeed {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 90%;
+}
+.rssFeed a {
+	color: #ffffff;
+	text-decoration: none;
+}
+.rssFeed a:hover {
+	color: #000;
+	text-decoration: underline;
+}
+
+.rssHeader { padding: 0.2em 0; }
+
+.rssBody {
+	color:#ffffff;
+}
+.rssBody ul { list-style: none; }
+.rssBody ul, .rssRow, .rssRow h4, .rssRow p {
+	margin: 0;
+	padding: 0;
+}
+
+.rssRow { padding: 0.8em; }
+.rssRow h4 { font-size: 1.1em; }
+.rssRow div {
+	font-size: 90%;
+	color: #666;
+}
+
+
+.rssRow .rssMedia {
+	padding: 0.5em;
+	font-size: 1em;
+}
+
+#div_foot{
+
+	
+	float:left;
+	width:95%;
+	height:130px;
+	
+	margin:0px 10px 0px 10px;
+}
+#div_foot img{
+
+}
+
+.tablestyle_def_color_th{
+	background-color: #5592D3;
+	color: #ffffff;
+	padding : 3px;
+}
+.tablestyle_def_color_tr{
+	background-color: #C5DEF3;
+	padding : 3px;
+}
+.tablestyle_def_color_tr2{
+	background-color: #EBF4FB;
+	padding : 3px;
+}
+.tablestyle_def_hover{
+	background-color: #FFCDE5;
+}

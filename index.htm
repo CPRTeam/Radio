@@ -1,0 +1,133 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link type="text/css" href="css/jquery-ui-1.8.23.custom.css" rel="stylesheet" />
+	<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery.store.js"></script>
+	<link href="css/index.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="js/index2.js"></script>
+	<script type="text/javascript" src="js/default2.js"></script>
+</head>
+<body >
+	<div id="tabs">
+		<ul>
+			<li><a onclick="is_in_borrow=false;is_in_return=false;load_item()"   href="#tab_item_list">設備列表</a></li>
+			<li><a onclick="is_in_borrow=false;is_in_return=false;load_member()" href="#tab_member_list">人員列表</a></li>
+			<li><a onclick="load_borrow()" href="#tab_borrow">設備借出</a></li>
+			<li><a onclick="load_return()" href="#tab_return">設備歸還</a></li>
+			<li><a onclick="data_IO()" href="#tab_dataIO">匯出/入</a></li>
+			<li><a onclick="returndefault()" href="javascript:;">還原初始值</a></li>
+		</ul>
+		
+		<div id="tab_item_list">
+			設備數量：<span id="sp_item_count"></span>  已借出數：<span id="sp_item_count_borrow"></span>
+			<table width="100%" class="tabstyle_def">
+				<thead>
+					<tr>
+						<th>設備編號</th>
+						<th>設備名稱</th>
+						<th>借出人</th>
+						<th>借出時間</th>
+						<th>歸還時間</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="tab_member_list">
+			人員數量：<span id="sp_member_count"></span>
+			<table width="100%" class="tabstyle_def">
+				<thead>
+					<tr>
+						<th>人員編號</th>
+						<th>人員名稱</th>
+						<th>組別</th>
+						<th>未歸還數量</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+		</div>
+
+		<div id="tab_borrow">
+			<table width="100%" class="tabstyle_def">
+				<tr>
+					<th width="120" align="right">借出人編號：</th>
+					<td><input type="text" id="txt_borrow_who" style="width:80%">
+						<button id="but_borrow_clear_who">清除</button>
+					</td>
+				</tr>
+				<tr>
+					<th align="right">設備編號：</th>
+					<td><input type="text" id="txt_borrow_item" style="width:99%"></td>
+				</tr>
+				<tr>
+					<th align="right">借出人：</th>
+					<td id="td_borrow_who"></td>
+				</tr>
+				<tr>
+					<th align="right">設備名稱：</th>
+					<td id="td_borrow_item"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2" id="td_borrow_msg" style="font-size:5em;" >
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="tab_dataIO">
+			<table width="100%" class="tabstyle_def">
+				<tr>
+					<th width="50%" align="center">匯出資料</th>
+					<th width="50%" align="center">匯入資料</th>
+				</tr>
+				<tr>
+					<td>
+						<div align="center">
+							<button id="export_file">下載存檔</button>
+						</div>
+						<textarea id="txt_export" style="display: none;" rows="25"></textarea>
+					</td>
+					<td>
+						<div align="center">
+							<input type="file" id="import_input" />
+							<button id="but_import_data">匯入</button>
+						</div>
+						<textarea id="txt_import" style="display: none;" rows="25"></textarea>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="tab_return">
+			<table width="100%" class="tabstyle_def">
+				<tr>
+					<th width="120" align="right">設備編號：</th>
+					<td><input type="text" id="txt_return_item" style="width:99%"></td>
+				</tr>
+				<tr>
+					<th align="right">借出人：</th>
+					<td id="td_return_who"></td>
+				</tr>
+				<tr>
+					<th align="right">設備名稱：</th>
+					<td id="td_return_item"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2" id="td_return_msg" style="font-size:5em;" >
+						
+					</td>
+				</tr>
+			</table>
+		</div>
+
+	</div>
+</body>
+</html>
