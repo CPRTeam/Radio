@@ -10,27 +10,14 @@ $(function(){
 	
 	});
 	
-	setfocus();
-	function setfocus(){
-		setTimeout(function() {
-			if(is_in_borrow==true){
-				if($('#txt_borrow_who').val()!='' && $('#txt_borrow_who').val().length>2){
-					$('#txt_borrow_item').focus().select();
-				}else{
-					$('#txt_borrow_who').focus().select();
-				}
-			}
-			if(is_in_return==true){
-				$('#txt_return_item').focus().select();
-			}
-			setfocus();
-		},2000);
-	}
-	$('#but_borrow_clear_who').click(function(){
-		$('#txt_borrow_who').val('')
-							.focus();
-		
-	});
+	setInterval(function() {(function setfocus(){
+		if(is_in_borrow==true){
+			$('#barcode_borrow').focus();
+		}
+		if(is_in_return==true){
+			$('#txt_return_item').focus();
+		}
+	})()}, 1000);
 
 	$('#but_import_data').click(function(){
 		var files = $('#import_input')[0].files;
@@ -54,50 +41,10 @@ $(function(){
 	$('#export_file').click(function() {
 		exporter.save($('#txt_export').val());
 	});
-	$('#txt_borrow_who').keyup(function(event){
-		if(event.keyCode=='13'){
-			var member_id=$('#txt_borrow_who').val();
-			var member_name=$.storage.get('member_name_'+member_id);
-			var member_group=$.storage.get('member_group_'+member_id);
-			$('#td_borrow_who').html(member_name+'('+member_group+')');
-		}
-	});
-	$('#txt_borrow_item').keyup(function(event){
-		if(event.keyCode=='13'){
-			var member_id=$('#txt_borrow_who').val();
-			
-			var item_id=$('#txt_borrow_item').val();
-			var item_name=$.storage.get('item_name_'+item_id);
-			$('#td_borrow_item').html(item_name);
-			
-			var currentTime = new Date()
-			var time_m=''+(currentTime.getMonth()+1);
-			var time_d=''+currentTime.getDate();
-			var time_y=''+currentTime.getFullYear();
-			var time_h=''+currentTime.getHours();
-			var time_mm=''+currentTime.getMinutes();
-			var time_s=''+currentTime.getSeconds();
-			
-			if(time_m.length<2)time_m='0'+time_m;
-			if(time_d.length<2)time_d='0'+time_d;
-			if(time_h.length<2)time_h='0'+time_h;
-			if(time_mm.length<2)time_mm='0'+time_mm;
-			if(time_s.length<2)time_s='0'+time_s;
-			var time_now=time_y+'-'+time_m+'-'+time_d+' '+ time_h + ':' + time_mm + ':' + time_s;
-			
-			$.storage.set('item_borrow_'+item_id,member_id);
-			$.storage.set('item_borrowtime_'+item_id,time_now);
-			$.storage.set('item_returntime_'+item_id,'');
-			
-			$('#td_borrow_item').html(item_name);
-			
-			$('#td_borrow_msg').html('設備借出成功！');
-			setTimeout(function() {
-				$('#td_borrow_msg').html('');
-				
-				$('#txt_borrow_item').val('');
-				$('#txt_borrow_who').val('').focus();
-			},2000);
+	$('#barcode_borrow').on('keypress', function(e) {
+		if(e.keyCode==13) {
+			itemStorage.check(this.value);
+			this.value = "";
 		}
 	});
 	
@@ -275,6 +222,59 @@ $(function(){
 		var arg = arguments;
 		var i = 1;
 		return format.replace(/%((%)|s)/g, function (m) { return m[2] || arg[i++] });
+	}
+	var itemStorage = new function itemStorage() {
+		this.check = function check(value) {
+			if(value.match(/^\d{3}$/))
+				this.showWho(value);
+			else
+				this.showDevice(value);
+
+			var currentTime = new Date()
+			var time_m=''+(currentTime.getMonth()+1);
+			var time_d=''+currentTime.getDate();
+			var time_y=''+currentTime.getFullYear();
+			var time_h=''+currentTime.getHours();
+			var time_mm=''+currentTime.getMinutes();
+			var time_s=''+currentTime.getSeconds();
+			
+			if(time_m.length<2)time_m='0'+time_m;
+			if(time_d.length<2)time_d='0'+time_d;
+			if(time_h.length<2)time_h='0'+time_h;
+			if(time_mm.length<2)time_mm='0'+time_mm;
+			if(time_s.length<2)time_s='0'+time_s;
+
+			this.borrow(time_y+'-'+time_m+'-'+time_d+' '+ time_h + ':' + time_mm + ':' + time_s);
+		}
+		this.showWho = function showWho(member_id) {
+			var member_name=$.storage.get('member_name_'+member_id);
+			var member_group=$.storage.get('member_group_'+member_id);
+			$('#td_borrow_who').html(member_name+'('+member_group+')');
+			$('#txt_borrow_who').text(member_id);
+		}
+		this.showDevice = function showDevice(item_id) {
+			var item_name=$.storage.get('item_name_'+item_id);
+			$('#td_borrow_item').html(item_name);
+			$('#txt_borrow_item').text(item_id);
+		}
+		this.borrow = function borrow(time_now) {
+			var member_id = $('#txt_borrow_who').text();
+			var item_id = $('#txt_borrow_item').text();
+			if(item_id.length > 0 && member_id.length > 0) {
+				$.storage.set('item_borrow_'+item_id,member_id);
+				$.storage.set('item_borrowtime_'+item_id,time_now);
+				$.storage.set('item_returntime_'+item_id,'');
+				
+				$('#td_borrow_msg').html('設備借出成功！');
+				setTimeout(function() {
+					$('#txt_borrow_item').text('');
+					$('#txt_borrow_who').text('');
+					$('#td_borrow_item').text('');
+					$('#td_borrow_who').text('');
+					$('#td_borrow_msg').html('');
+				}, 1000);
+			}
+		}
 	}
 	var exporter = new function exporter() {
 		this.createBlobArray = function createBlobArray(blob) {

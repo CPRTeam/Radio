@@ -23,6 +23,10 @@
 		
 		<div id="tab_item_list">
 			設備數量：<span id="sp_item_count"></span>  已借出數：<span id="sp_item_count_borrow"></span>
+			<!--
+			<br />
+			條碼掃描區：<input type="text" id="barcode_item" />
+			-->
 			<table width="100%" class="tabstyle_def">
 				<thead>
 					<tr>
@@ -40,6 +44,10 @@
 
 		<div id="tab_member_list">
 			人員數量：<span id="sp_member_count"></span>
+			<!--
+			<br />
+			條碼掃描區：<input type="text" id="barcode_member" />
+			-->
 			<table width="100%" class="tabstyle_def">
 				<thead>
 					<tr>
@@ -55,16 +63,15 @@
 		</div>
 
 		<div id="tab_borrow">
+			條碼掃描區：<input type="text" id="barcode_borrow" />
 			<table width="100%" class="tabstyle_def">
 				<tr>
 					<th width="120" align="right">借出人編號：</th>
-					<td><input type="text" id="txt_borrow_who" style="width:80%">
-						<button id="but_borrow_clear_who">清除</button>
-					</td>
+					<td><div id="txt_borrow_who"></div></td>
 				</tr>
 				<tr>
 					<th align="right">設備編號：</th>
-					<td><input type="text" id="txt_borrow_item" style="width:99%"></td>
+					<td><div id="txt_borrow_item"></div></td>
 				</tr>
 				<tr>
 					<th align="right">借出人：</th>
