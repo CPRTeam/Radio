@@ -4,9 +4,9 @@ var is_in_return=false;
 $(function(){
 	$.storage = new $.store();
 	
-	$( "#tabs" ).tabs();
+	$("#tabs").tabs();
 	tabstyle_def();
-	$( "#tabs" ).click(function(){
+	$("#tabs").click(function(){
 	
 	});
 	
@@ -34,9 +34,9 @@ $(function(){
 				}
 			};
 			reader.readAsText(file);
-		} else {
-			alert('請先選擇檔案');
 		}
+		else
+			alert('請先選擇檔案');
 	});
 
 	$('#but_init').click(function(){
@@ -63,13 +63,13 @@ $(function(){
 				    }
 	    			$.storage.set('issync','1');
 					$.storage.set('member_count',count_member);
-					reloadToFirstView();
+					$('[href="#tab_member_list"]').click();
 				}
 			};
 			reader.readAsText(file);
-		} else {
-			alert('請先選擇檔案');
 		}
+		else
+			alert('請先選擇檔案');
 	});	
 
 	$('#export_file').click(function() {
