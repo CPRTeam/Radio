@@ -329,7 +329,7 @@ $(function(){
 			return a;
 		}
 		this.save = function save(data, filename) {
-			if(!filename) filename = "exportRadio.json.txt";
+			if(!filename) filename = "Radio" + moment().format('YYYYMMDD-HHmmss') + ".json.txt";
 			if(!!data)
 				$(this.createBlobDownload({
 									"Content-Type": "text/xml",
