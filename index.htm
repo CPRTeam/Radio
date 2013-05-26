@@ -20,7 +20,7 @@
 			<li><a onclick="load_borrow()" href="#tab_borrow">設備借出</a></li>
 			<li><a onclick="load_return()" href="#tab_return">設備歸還</a></li>
 			<li><a onclick="data_IO()" href="#tab_dataIO">匯出/入</a></li>
-			<li><a onclick="returndefault()" href="javascript:;">還原初始值</a></li>
+			<li><a href="#tab_INIT">初始化</a></li>
 		</ul>
 		<div id="tab_item_list">
 			設備數量：<span id="sp_item_count"></span>  已借出數：<span id="sp_item_count_borrow"></span>
@@ -88,6 +88,25 @@
 				</tr>
 			</table>
 		</div>
+		<div id="tab_return">
+			<table width="100%" class="tabstyle_def">
+				<tr>
+					<th width="120" align="right">設備編號：</th>
+					<td><input type="text" id="txt_return_item" style="width:99%"></td>
+				</tr>
+				<tr>
+					<th align="right">借出人：</th>
+					<td id="td_return_who"></td>
+				</tr>
+				<tr>
+					<th align="right">設備名稱：</th>
+					<td id="td_return_item"></td>
+				</tr>
+				<tr>
+					<td align="center" colspan="2" id="td_return_msg" style="font-size:5em;" ></td>
+				</tr>
+			</table>
+		</div>
 		<div id="tab_dataIO">
 			<table width="100%" class="tabstyle_def">
 				<tr>
@@ -111,22 +130,26 @@
 				</tr>
 			</table>
 		</div>
-		<div id="tab_return">
+		<div id="tab_INIT">
 			<table width="100%" class="tabstyle_def">
 				<tr>
-					<th width="120" align="right">設備編號：</th>
-					<td><input type="text" id="txt_return_item" style="width:99%"></td>
+					<th width="100%" align="center">初始化成員資料</th>
 				</tr>
 				<tr>
-					<th align="right">借出人：</th>
-					<td id="td_return_who"></td>
+					<td>
+						<div align="center">
+							<button onclick="download_sample()">下載範本</button>
+						</div>
+					</td>
 				</tr>
 				<tr>
-					<th align="right">設備名稱：</th>
-					<td id="td_return_item"></td>
-				</tr>
-				<tr>
-					<td align="center" colspan="2" id="td_return_msg" style="font-size:5em;" ></td>
+					<td>
+						<div align="center">
+							<input type="file" id="init_data" />
+							<button id="but_init">匯入</button>
+						</div>
+						<textarea id="txt_import" style="display: none;" rows="25"></textarea>
+					</td>
 				</tr>
 			</table>
 		</div>
