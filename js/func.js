@@ -38,9 +38,44 @@ $(function(){
 			alert('請先選擇檔案');
 		}
 	});
+
+	$('#but_init').click(function(){
+		var files = $('#init_data')[0].files;
+		if(files.length > 0) {
+			var file = files[0];
+			var count_member = 0;
+			reader = new FileReader();
+			reader.onload = function(e) {
+				if(confirm('確定哦？')){
+					localStorage.clear();
+					fun_def_item();
+					var allText = e.target.result;
+				    var allTextLines = allText.split(/\r\n|\n/);
+				    var headers = allTextLines[0].split(',');
+				    for (var i=1; i<allTextLines.length; i++) {
+				        var data = allTextLines[i].split(',');
+				        if (data.length == headers.length) {
+	                		$.storage.set('member_list_'+count_member,data[0]);
+							$.storage.set('member_name_'+data[0],data[1]);
+							$.storage.set('member_group_'+data[0],data[2]);
+							count_member+=1;
+				        }
+				    }
+	    			$.storage.set('issync','1');
+					$.storage.set('member_count',count_member);
+					reloadToFirstView();
+				}
+			};
+			reader.readAsText(file);
+		} else {
+			alert('請先選擇檔案');
+		}
+	});	
+
 	$('#export_file').click(function() {
 		exporter.save($('#txt_export').val());
 	});
+
 	$('#barcode_borrow').on('keypress', function(e) {
 		if(e.keyCode==13) {
 			itemStorage.check(this.value);
@@ -50,9 +85,7 @@ $(function(){
 	
 	$('#txt_return_item').keyup(function(event){
 		if(event.keyCode=='13'){
-
 			var item_id=$('#txt_return_item').val();
-
 			var currentTime = new Date()
 			var time_m=''+(currentTime.getMonth()+1);
 			var time_d=''+currentTime.getDate();
@@ -92,19 +125,13 @@ $(function(){
 	}
 	
 	function initcheck(){
-		
-		var issync = $.storage.get( 'issync' );
+		var issync = $.storage.get('issync');
 		if(issync!='1'){
-			alert('資料表中無資料，將先載入預設資料！');
-			//alert($.storage.get('item_count'));
-			//alert($.storage.get('member_count'));
-			fun_def_item();
-			fun_def_member();
-			$.storage.set('issync','1');
+			alert('資料表中無資料，請先初始化資料！');
+			$('[href="#tab_INIT"]').click();
 		}
-		load_item();
-		load_member();
 	}
+
 	function load_item(){
 		$('#tab_item_list table tbody').html('');
 		var item_count = $.storage.get('item_count');
@@ -148,6 +175,7 @@ $(function(){
 		$('#sp_item_count_borrow').html(isborrow);
 		tabstyle_def();
 	}
+
 	function load_member(){
 		$('#tab_member_list table tbody').html('');
 		var member_count = $.storage.get('member_count');
@@ -176,6 +204,7 @@ $(function(){
 		}
 		tabstyle_def();
 	}
+
 	function count_borrow_item(member_id){
 		var item_count = $.storage.get('item_count');
 		var count=0;
@@ -207,22 +236,20 @@ $(function(){
 		$('#txt_export').val(JSON.stringify(localStorage)).focus();
 	}
 
-	function returndefault(){
-		if(confirm('確定哦？')){
-			localStorage.clear();
-			fun_def_item();
-			fun_def_member();
-			setTimeout(function(){reloadToFirstView();}, 500);
-		}
+	function download_sample(){
+		exporter.save("人員編號,人員暱稱,人員組別\n", "memberList.csv");
 	}
+
 	function reloadToFirstView() {
 		$('[href="#tab_item_list"]').click();
 	}
+
 	function sprintf(format, etc) {
 		var arg = arguments;
 		var i = 1;
 		return format.replace(/%((%)|s)/g, function (m) { return m[2] || arg[i++] });
 	}
+
 	var itemStorage = new function itemStorage() {
 		this.check = function check(value) {
 			if(value.match(/^\d{3}$/))
@@ -276,6 +303,7 @@ $(function(){
 			}
 		}
 	}
+
 	var exporter = new function exporter() {
 		this.createBlobArray = function createBlobArray(blob) {
 			var ua = new Uint8Array(blob.length);
