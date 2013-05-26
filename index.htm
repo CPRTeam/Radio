@@ -20,7 +20,6 @@
 			<li><a onclick="data_IO()" href="#tab_dataIO">匯出/入</a></li>
 			<li><a onclick="returndefault()" href="javascript:;">還原初始值</a></li>
 		</ul>
-		
 		<div id="tab_item_list">
 			設備數量：<span id="sp_item_count"></span>  已借出數：<span id="sp_item_count_borrow"></span>
 			<!--
@@ -41,7 +40,6 @@
 				</tbody>
 			</table>
 		</div>
-
 		<div id="tab_member_list">
 			人員數量：<span id="sp_member_count"></span>
 			<!--
@@ -61,12 +59,11 @@
 				</tbody>
 			</table>
 		</div>
-
 		<div id="tab_borrow">
 			<table width="100%" class="tabstyle_def">
 				<tr>
 					<th width="120" align="right">條碼掃描區：</th>
-					<td><input type="text" id="barcode_borrow" /></td>
+					<td><input type="text" id="barcode_borrow" style="width:99%"/></td>
 				</tr>
 				<tr>
 					<th width="120" align="right">借出人編號：</th>
@@ -85,13 +82,10 @@
 					<td id="td_borrow_item"></td>
 				</tr>
 				<tr>
-					<td align="center" colspan="2" id="td_borrow_msg" style="font-size:5em;" >
-						
-					</td>
+					<td align="center" colspan="2" id="td_borrow_msg" style="font-size:5em;" ></td>
 				</tr>
 			</table>
 		</div>
-
 		<div id="tab_dataIO">
 			<table width="100%" class="tabstyle_def">
 				<tr>
@@ -115,7 +109,6 @@
 				</tr>
 			</table>
 		</div>
-
 		<div id="tab_return">
 			<table width="100%" class="tabstyle_def">
 				<tr>
@@ -131,13 +124,10 @@
 					<td id="td_return_item"></td>
 				</tr>
 				<tr>
-					<td align="center" colspan="2" id="td_return_msg" style="font-size:5em;" >
-						
-					</td>
+					<td align="center" colspan="2" id="td_return_msg" style="font-size:5em;" ></td>
 				</tr>
 			</table>
 		</div>
-
 	</div>
 </body>
 </html>
