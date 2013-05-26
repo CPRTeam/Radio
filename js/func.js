@@ -130,6 +130,8 @@ $(function(){
 			alert('資料表中無資料，請先初始化資料！');
 			$('[href="#tab_INIT"]').click();
 		}
+		else
+			load_item();
 	}
 
 	function load_item(){
