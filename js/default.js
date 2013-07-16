@@ -1,8 +1,8 @@
 ﻿function fun_def_item(){
-	//RDOKNU001 ~ 050
+	//R001 ~ R100
 	var count_items = 0;
-	var header='RDOKNU';
-	for(var i=1;i<=50;i++){
+	var header='R';
+	for(var i=1;i<=100;i++){
 		var tmp=''+i;
 		if(i<10)tmp='0'+tmp;
 		if(i<100)tmp='0'+tmp;
