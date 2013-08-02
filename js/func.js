@@ -253,7 +253,7 @@ $(function(){
 
 	var itemStorage = new function itemStorage() {
 		this.check = function check(value) {
-			if(value.match(/^\d{3}$/))
+			if(value.match(/(\d)-(\d)/))
 				this.showWho(value);
 			else
 				this.showDevice(value);
