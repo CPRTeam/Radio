@@ -140,7 +140,6 @@ $(function(){
 		$('#sp_item_count').html(item_count);
 		var isborrow=0;
 		for(i=0;i<item_count;i++){
-			
 			var item_id=$.storage.get('item_list_'+i);
 			var item_name=$.storage.get('item_name_'+item_id);
 			var item_borrow_member_id=$.storage.get('item_borrow_'+item_id);
