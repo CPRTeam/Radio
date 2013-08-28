@@ -102,9 +102,18 @@ $(function(){
 			var time_now=time_y+'-'+time_m+'-'+time_d+' '+ time_h + ':' + time_mm + ':' + time_s;
 			
 			$.storage.set('item_returntime_'+item_id,time_now);
-			
+			var member_id=$.storage.get('item_borrow_'+item_id);
+			var member_name=$.storage.get('member_name_'+member_id);
+			var member_group=$.storage.get('member_group_'+member_id);
+			var item_name=$.storage.get('item_name_'+item_id);
+
+			$('#td_return_who').html(member_name+'('+member_group+')');
+			$('#td_return_item').html(item_name);
 			$('#td_return_msg').html('設備歸還完成！');
+
 			setTimeout(function() {
+				$('#td_return_who').html('');
+				$('#td_return_item').html('');
 				$('#td_return_msg').html('');
 				$('#txt_return_item').val('').focus();
 			},2000);
