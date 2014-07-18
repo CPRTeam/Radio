@@ -9,7 +9,7 @@
 		tmp=header+tmp;
 		
 		$.storage.set('item_list_'+count_items,tmp);
-		$.storage.set('item_name_'+tmp,'無線電');
+		$.storage.set('item_name_'+tmp,'無線電-CPRTeam');
 		$.storage.set('item_borrow_'+tmp,'');
 		$.storage.set('item_borrowtime_'+tmp,'');
 		$.storage.set('item_returntime_'+tmp,'');
@@ -23,7 +23,7 @@
 		tmp=header+tmp;
 		
 		$.storage.set('item_list_'+count_items,tmp);
-		$.storage.set('item_name_'+tmp,'無線電');
+		$.storage.set('item_name_'+tmp,'無線電-Poka');
 		$.storage.set('item_borrow_'+tmp,'');
 		$.storage.set('item_borrowtime_'+tmp,'');
 		$.storage.set('item_returntime_'+tmp,'');
@@ -37,7 +37,7 @@
 		tmp=header+tmp;
 		
 		$.storage.set('item_list_'+count_items,tmp);
-		$.storage.set('item_name_'+tmp,'無線電');
+		$.storage.set('item_name_'+tmp,'高功率無線電');
 		$.storage.set('item_borrow_'+tmp,'');
 		$.storage.set('item_borrowtime_'+tmp,'');
 		$.storage.set('item_returntime_'+tmp,'');
