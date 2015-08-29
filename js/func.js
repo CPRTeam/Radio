@@ -121,7 +121,109 @@ $(function(){
 		}
 	});
 	initcheck();
+	
+	$('#but_googledoc_confirm').click(function(){ //加入串google sheet功能 by infax 2015.08.28
+		
+		if($('#txt_googledoc_key').val()!=''){
+			var docurl_1='https://spreadsheets.google.com/feeds/list/' + $('#txt_googledoc_key').val() + '/1/public/values?alt=json';
+			var docurl_2='https://spreadsheets.google.com/feeds/list/' + $('#txt_googledoc_key').val() + '/2/public/values?alt=json';
+			var doc_member='';
+			var doc_device='';
+			$.ajax({	// $.get $.getjson 沒有exception handler, 所以用$.ajax 
+				type: 'GET',
+				dataType:'json',
+				async:false,
+				cache:false,
+				url: docurl_1,
+				data: {	
+						},
+				error: function (XMLHttpRequest, textStatus, errorThrown) {
+					alert('請檢查文件是否開共用，並設定發佈到網路');
+					return;
+				},
+				success: function(data, textStatus){
+					switch(data.feed.title['$t']){
+						case 'member':doc_member=docurl_1;break;
+						case 'device':doc_device=docurl_1;break;
+					}
+					
+					
+					$.ajax({
+						type: 'GET',
+						dataType:'json',
+						async:false,
+						cache:false,
+						url: docurl_2,
+						data: {	
+								},
+						error: function (XMLHttpRequest, textStatus, errorThrown) {
+							alert('請檢查文件是否開共用，並設定發佈到網路');
+							return;
+						},
+						success: function(data, textStatus){
+							switch(data.feed.title['$t']){
+								case 'member':doc_member=docurl_2;break;
+								case 'device':doc_device=docurl_2;break;
+							}
+						}
+					});
+				}
+			});
+
+			if(doc_member!='' && doc_device!=''){
+				
+				if(confirm('測試連結成功！\n接下來會與此文件連結，確定的話將會將資料清空並同步哦！')){
+					localStorage.clear();
+					$.storage.set('issync','1');
+					$.storage.set('System_GoogleSheet_url_member',doc_member);
+					$.storage.set('System_GoogleSheet_url_device',doc_device);
+					$.storage.set('System_useGoogleSheet',1);
+					$.storage.set('System_GoogleSheet_key',	$('#txt_googledoc_key').val());
+					if(googlesheet_loaddata()){
+							alert('資料下載完成！');
+							location.reload();
+					}
+				}
+				
+			}else{
+				alert('請檢查文件內容的格式是否有錯(至少要有兩個表，分別請命名為member與device)');
+			}
+		}
+		
+		
+	});
 });
+	function googlesheet_loaddata(){ //Google sheet資料同步 by infax 2015.08.28
+		var url_member=$.storage.get('System_GoogleSheet_url_member');
+		var url_device=$.storage.get('System_GoogleSheet_url_device');
+		$.getJSON( url_member , function( data ) {
+			var count_member=0;
+			$.each(data.feed.entry,function(v,d){			
+				$.storage.set('member_list_'+count_member,d['gsx$id']['$t']);
+				$.storage.set('member_name_'+d['gsx$id']['$t'],d['gsx$name']['$t']);
+				$.storage.set('member_group_'+d['gsx$id']['$t'],d['gsx$group']['$t']);
+				count_member+=1;
+			});
+			$.storage.set('member_count',count_member);
+		});
+		
+		$.getJSON( url_device , function( data ) {
+			var count_items=0;
+			$.each(data.feed.entry,function(v,d){
+						
+				$.storage.set('item_list_'+count_items,d['gsx$id']['$t']);
+				$.storage.set('item_name_'+d['gsx$id']['$t'],d['gsx$name']['$t']);
+				$.storage.set('item_borrow_'+d['gsx$id']['$t'],d['gsx$lender']['$t']);
+				$.storage.set('item_borrowtime_'+d['gsx$id']['$t'],d['gsx$lendtime']['$t']);
+				$.storage.set('item_returntime_'+d['gsx$id']['$t'],d['gsx$returntime']['$t']);
+				count_items+=1;
+			});
+			$.storage.set('item_count',count_items);
+		});
+		
+		return true;
+		
+	}
 
 	function tabstyle_def(){
 		/*table 顏色設定*/
@@ -139,8 +241,10 @@ $(function(){
 			alert('資料表中無資料，請先初始化資料！');
 			$('[href="#tab_INIT"]').click();
 		}
-		else
+		else{
+			$('#txt_googledoc_key').val($.storage.get('System_GoogleSheet_key'));
 			load_item();
+		}
 	}
 
 	function load_item(){
@@ -301,7 +405,6 @@ $(function(){
 				$.storage.set('item_borrow_'+item_id,member_id);
 				$.storage.set('item_borrowtime_'+item_id,time_now);
 				$.storage.set('item_returntime_'+item_id,'');
-				
 				$('#td_borrow_msg').html('設備借出成功！');
 				setTimeout(function() {
 					$('#txt_borrow_item').text('');
